@@ -1,0 +1,19 @@
+begin
+
+   for i in (select emp_id, leave_id, from_date , to_date from hr_emp_leaves
+                where from_date between '01-jun-13' and '30-jun-13'
+                and to_date between '01-jun-13' and '30-jun-13' 
+                and leave_status in ('APPROVED','POSTED')) 
+  loop
+
+            UPDATE hr_attendances ha
+               SET (ha.attendance_status, ha.leaves, HA.LATE_NO, ded_hours) =
+                      (SELECT leave_short_desc, leave_weight, NULL , null
+                         FROM hr_leaves
+                        WHERE leave_id = i.leave_id)
+             WHERE ha.attendance_date BETWEEN i.from_date AND i.TO_DATE
+               AND ha.emp_id = i.emp_id;    
+
+  END LOOP;
+
+end;

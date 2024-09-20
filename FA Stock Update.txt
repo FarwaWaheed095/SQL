@@ -1,0 +1,32 @@
+update INV_ITEM_COMPANY_LOT a
+set (cur_qty, cur_value) = (select sum(qty), sum(amount) from inv_lot_stock_ledger b where a.lot_id = b.lot_id
+                            and  A.ITEM_ID = b.item_id and a.company_id = B.COMPANY_ID);
+
+
+update INV_ITEM_COMPANIES a
+set (cur_qty, cur_value) = (select sum(qty), sum(amount) from inv_stock_ledger b where A.ITEM_ID = b.item_id
+                            and A.COMPANY_ID = B.COMPANY_ID);
+
+
+update inv_item_company_stores A set (cur_qty) = 
+(select sum(qty) from store_stock_updation b 
+where A.ITEM_ID = b.item_id and A.STORE_ID = b.store_id and a.company_id = b.company_id);
+
+
+update inv_item_companies
+set CUR_RATE = cur_value/cur_qty
+where cur_qty > 0;
+
+update inv_item_companies
+set cur_value = 0, CUR_RATE = 0
+where cur_qty = 0;
+
+-------------------------- AL TEXTILE------------------------
+
+update INV_ITEM_COMPANIES a
+set (cur_qty, cur_value) = (select sum(qty), sum(amount) from INV_LOT_STOCK_LEDGER b where A.ITEM_ID = b.item_id
+                            and A.COMPANY_ID = B.COMPANY_ID);
+                            
+update inv_item_company_stores a
+set (cur_qty) = (select sum(qty) from INV_LOT_STOCK_LEDGER b where A.ITEM_ID = b.item_id
+                            and A.COMPANY_ID = B.COMPANY_ID and a.store_id=b.store_id);

@@ -1,0 +1,23 @@
+delete from gl_vouchers where voucher_id in (select voucher_id from inv_grns where grn_id in ( select grn_id from inv_grn_items where indent_id in 
+(select indent_id from inv_indents where indent_no in (242,243,244))));
+delete from gl_voucher_accounts where voucher_id in (select voucher_id from inv_grns where grn_id in ( select grn_id from inv_grn_items where indent_id in 
+(select indent_id from inv_indents where indent_no in (242,243,244))));
+
+delete from inv_grns where grn_id in ( select grn_id from inv_grn_items where indent_id in 
+(select indent_id from inv_indents where indent_no in (242,243,244)));
+
+delete from inv_grn_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244));
+
+delete from inv_irns where irn_id in (select irn_id from inv_irn_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244)));
+delete from inv_irn_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244));
+
+delete from inv_igps where igp_id in (select igp_id from inv_igp_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244)));
+delete from inv_igp_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244));
+
+delete from inv_po_manuals where PO_M_ID in (select PO_M_ID from inv_po_manual_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244)));
+delete from inv_po_manual_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244));
+
+delete from inv_pos where po_id in (select po_id from inv_po_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244)));
+delete from inv_po_items where indent_id in (select indent_id from inv_indents where indent_no in (242,243,244));
+
+delete from inv_indents where indent_no in (242,243,244);

@@ -1,0 +1,15 @@
+begin
+
+for i in (select emp_id from hr_employees where emp_id<>101 )
+    loop
+            Insert into HR_EMP_LEAVE_BALANCES
+               (LEAVE_BAL_ID, LEAVE_ID, EMP_ID, PERIOD_ID, MODULE, 
+                MODULE_DOC_ID, BALANCE, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+                LAST_UPDATE_DATE, POSTED)
+             Values
+               (HR_EMP_LEAVE_BALANCE_ID_S.nextval, 3, i.emp_id, 201301, 'ENTITLED', 
+                NULL, 1, 1, sysdate, 1, 
+                sysdate, NULL);
+    end loop;
+    
+end;

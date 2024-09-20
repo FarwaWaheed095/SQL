@@ -1,0 +1,8 @@
+if :main.branch = '00' then  
+	SET_ITEM_PROPERTY('PB_add',ENABLED,PROPERTY_false);
+	set_item_property('mess',visible,property_true);
+	:mess:='Select Branch from list to create Delivery Challan.';
+else
+	SET_ITEM_PROPERTY('PB_add',ENABLED,PROPERTY_true);
+		set_item_property('mess',visible,property_false);
+end if;

@@ -1,0 +1,24 @@
+begin
+    for i in (
+        select attendance_id , emp_id  from hr_attendances
+        where attendance_date between '01-may-14' and '12-may-14'
+        and attendance_status='A')
+    loop
+    
+        update hr_attendances
+        set in_time=shift_start_time , out_time=shift_end_time
+        where attendance_id=i.attendance_id;
+        
+        insert into hr_att_log
+        select emp_no,shift_start_time,null,null,null,null,null,HR_ATT_LOG_ID_S.nextval,'N'
+        from hr_attendances a , hr_employees e
+        where a.emp_id=e.emp_id and attendance_id=i.attendance_id;
+        
+        insert into hr_att_log
+        select emp_no,shift_end_time,null,null,null,null,null,HR_ATT_LOG_ID_S.nextval,'N'
+        from hr_attendances a , hr_employees e
+        where a.emp_id=e.emp_id and attendance_id=i.attendance_id;
+    end loop;
+    
+end;
+        

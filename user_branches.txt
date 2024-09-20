@@ -1,0 +1,16 @@
+begin
+    for  i in (select BRANCH_ID , USER_ID from sys_branches com , sys_users u
+                where (branch_id,user_id) not in (
+                select branch_id,user_id from sys_user_branches))
+     LOOP
+
+        Insert into SYS_USER_BRANCHES
+           (USER_BRANCH_ID, BRANCH_ID, USER_ID, VIEW_OPT, CREATED_BY, 
+            CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE)
+         Values
+           (SYS_USER_BRANCH_ID_S.NEXTVAL, I.BRANCH_ID, I.USER_ID, 'N', 1, 
+            TO_DATE('03/17/2013 01:45:06', 'MM/DD/YYYY HH24:MI:SS'), 1, TO_DATE('03/17/2013 01:45:06', 'MM/DD/YYYY HH24:MI:SS'));
+            
+     END LOOP;
+     
+END;

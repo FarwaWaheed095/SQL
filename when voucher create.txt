@@ -1,0 +1,3 @@
+exception when others then
+ message(SQLCODE||'-'||SQLERRM);
+ form_ddl('rollback');

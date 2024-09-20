@@ -1,0 +1,50 @@
+---check advance balance trial--------
+select sum(ap_adv) , sum(adv), ap.advance_id from 
+(select sum(nvl(amount,0)) ap_adv , advance_id
+from ap_invoice_advances
+group by advance_id ) ap,(
+select sum(nvl(advance_adjusted,0)) adv , advance_id 
+from ap_advances
+group by advance_id) adv
+where ap.advance_id=adv.advance_id
+group by ap.advance_id
+having sum(ap_adv)<>sum(adv);
+
+
+------------- check advance adjusted more then balance -----
+
+select sum(ap_adv) , sum(adv), ap.advance_id from 
+(select sum(amount) ap_adv , advance_id
+from ap_invoice_advances
+group by advance_id ) ap,(
+select sum(advance_adjusted) adv , advance_id 
+from ap_advances
+group by advance_id) adv
+where ap.advance_id=adv.advance_id
+group by ap.advance_id
+having sum(ap_adv)<>sum(adv);
+
+-------------- invoice adjustment-----------------
+
+update ap_invoices ap
+set advance_adjusted= (select sum(nvl(amount,0)) from ap_invoice_advances where ap.invoice_id=invoice_id),
+    INVOICE_BALANCE=nvl(invoice_amount,0)-nvl((select sum(nvl(amount,0)) from ap_invoice_advances where ap.invoice_id=invoice_id),0)-
+                   nvl( (SELECT SUM (nvl(pi.invoice_adjusted,0))
+                    FROM ap_payment_invoices pi, ap_payments p
+            	       WHERE invoice_id = ap.invoice_id
+                     AND p.payment_id = pi.payment_id
+                     AND p.payment_status <> 'PREPARED'),0),
+   INVOICE_PAID= nvl((select sum(nvl(amount,0)) from ap_invoice_advances where ap.invoice_id=invoice_id),0)+
+                    nvl((SELECT SUM (nvl(pi.invoice_adjusted,0))
+                    FROM ap_payment_invoices pi, ap_payments p
+            	       WHERE invoice_id = ap.invoice_id
+                     AND p.payment_id = pi.payment_id
+                     AND p.payment_status <> 'PREPARED'),0);
+                     
+                     
+select invoice_id , invoice_no , invoice_amount , advance_adjusted , invoice_paid , invoice_balance
+from ap_invoices where invoice_balance<0;
+    
+    
+    
+    

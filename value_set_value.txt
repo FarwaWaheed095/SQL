@@ -1,0 +1,2 @@
+select lpad(to_char(nvl(max(to_number(value_set_value)),0)+1),2,'0') into :data_values.value_set_value
+from data_values where value_set_id=54;

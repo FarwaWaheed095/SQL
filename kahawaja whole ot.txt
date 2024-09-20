@@ -1,0 +1,1275 @@
+declare
+cursor dept is (select distinct dept from a3 where v_1 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_1 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '01-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '01-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_1,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_1,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_1 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+
+declare
+cursor dept is (select distinct dept from a3 where v_2 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_2 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '02-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '02-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_2,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_2,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_2 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+
+declare
+cursor dept is (select distinct dept from a3 where v_3 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_3 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '03-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '03-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_3,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_3,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_3 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_4 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_4 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '04-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '04-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_4,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_4,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_4 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_5 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_5 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '05-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '05-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_5,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_5,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_5 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_6 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_6 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '06-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '06-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_6,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_6,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_6 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_7 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_7 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '07-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '07-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_7,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_7,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_7 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_9 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_9 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '09-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '09-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_9,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_9,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_9 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_10 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_10 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '10-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '10-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_10,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_10,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_10 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_11 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_11 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '11-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '11-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_11,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_11,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_11 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_12 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_12 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '12-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '12-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_12,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_12,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_12 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_13 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_13 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '13-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '13-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_13,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_13,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_13 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_14 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_14 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '14-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '14-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_14,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_14,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_14 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_15 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_15 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '15-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '15-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_15,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_15,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_15 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_16 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_16 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '16-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '16-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_16,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_16,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_16 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_17 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_17 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '17-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '17-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_17,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_17,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_17 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_18 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_18 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '18-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '18-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_18,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_18,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_18 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_19 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_19 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '19-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '19-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_19,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_19,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_19 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_20 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_20 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '20-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '20-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_20,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_20,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_20 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_21 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_21 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '21-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '21-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_21,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_21,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_21 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_22 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_22 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '22-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '22-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_22,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_22,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_22 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_23 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_23 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '23-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '23-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_23,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_23,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_23 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_24 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_24 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '24-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '24-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_24,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_24,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_24 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_25 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_25 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '25-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '25-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_25,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_25,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_25 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_26 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_26 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '26-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '26-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_26,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_26,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_26 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;
+
+declare
+cursor dept is (select distinct dept from a3 where v_27 is not null and emp_no is not null);
+cursor emp is (select distinct dept, emp_no from a3 where v_27 is not null and emp_no is not null);
+ot_id number;
+ot_no number;
+ot_req_id number;
+v_no number := 0;
+begin
+for i in dept  loop
+
+  select count(*) into v_no 
+  from HR_OT_REQS where OT_REQ_DATE = '27-oct-11' 
+  and ORG_ID = to_number(i.dept);
+
+    if v_no = 0 then
+
+       select hr_ot_req_id_s.nextval into ot_id 
+       from dual;
+        select nvl(max(ot_Req_no),0)+1  into ot_no
+            from HR_OT_REQS;
+            
+            Insert into HR_OT_REQS
+               (OT_REQ_ID, OT_REQ_DATE,  ORG_ID, OT_REQ_STATUS, 
+                CREATED_BY, 
+                CREATION_DATE, LAST_UPDATED_BY, LAST_UPDATE_DATE, OT_REQ_NO)
+            values (ot_id , '27-oct-11', to_number(i.dept), 'CREATED',
+             1,
+              sysdate, 1, sysdate, ot_no) ;         
+    end if;
+
+  for j in emp  loop
+    select hr_ot_req_emp_id_s.nextval into ot_req_id from dual;
+        Insert into HR_OT_REQ_EMPS
+           (OT_REQ_EMP_ID, OT_REQ_ID, EMP_ID, REMARKS, DEPT_OT_START, 
+            DEPT_OT_END, DEPT_OT, ACTUAL_OT_START, ACTUAL_OT_END, ACTUAL_OT, 
+            TM_IN, TM_OUT, CREATED_BY, CREATION_DATE, LAST_UPDATED_BY, 
+            LAST_UPDATE_DATE, ATTENDANCE_ID, DEPT_ID, DESIGNATION, RATE, 
+            SHIFT_ID)
+        select ot_req_id, ot_id, to_number(a.emp_no), null, null,
+            null, null, null, null, v_27,
+            null, null, 1, sysdate, 1,
+            sysdate, null, to_number(dept), designation, round((CURRENT_PAY / 208) * v_27,2) ,
+            null from a3 a, hr_employees b where to_number(A.EMP_NO) = b.emp_id 
+            and v_27 is not null and to_number(a.emp_no) = to_number(j.emp_no) and a.dept = i.dept ;
+END loop;
+END loop;
+commit;
+end;

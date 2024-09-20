@@ -1,0 +1,72 @@
+  set serverout on;
+
+declare
+    so_no number:=4682;
+    rec     number:=0;
+    rec_no  number:=0;
+begin
+
+    select count(*) into rec from ar_receipt_invoices where
+        invoice_id in (Select invoice_id from sm_sales_invoice_items
+                    where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no));
+
+
+    if nvl(rec,0)=0 then
+
+
+        delete from gl_voucher_accounts
+        where voucher_id in ( select nvl(gl_voucher_cgs_id,0) from sm_delivery_challans
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no));
+
+        delete from gl_vouchers
+        where voucher_id in ( select nvl(gl_voucher_cgs_id,0) from sm_delivery_challans
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no));
+
+        delete from sm_delivery_challans
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no); 
+        
+        delete from sm_delivery_challan_items
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no);       
+        
+        delete from sm_ogps
+        where ogp_id=(select distinct ogp_id from sm_ogp_items 
+                    where sale_order_id in (select  sale_order_id from sm_sale_orders where sale_order_no=so_no)); 
+        
+        delete from sm_ogp_items
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no);
+        
+        delete from gl_voucher_accounts
+        where voucher_id in ( select nvl(gl_voucher_id,0) from sm_sales_invoices
+            where sales_invoice_id=(select distinct sales_invoice_id from sm_sales_invoice_items 
+                    where sale_order_id in (select  sale_order_id from sm_sale_orders where sale_order_no=so_no))); 
+
+        delete from gl_vouchers
+        where voucher_id in ( select nvl(gl_voucher_id,0) from sm_sales_invoices
+            where sales_invoice_id=(select distinct sales_invoice_id from sm_sales_invoice_items 
+                    where sale_order_id in (select  sale_order_id from sm_sale_orders where sale_order_no=so_no)));    
+        
+        delete from sm_sales_invoices
+        where sales_invoice_id=(select distinct sales_invoice_id from sm_sales_invoice_items 
+                    where sale_order_id in (select  sale_order_id from sm_sale_orders where sale_order_no=so_no)); 
+        
+        delete from sm_sales_invoice_items
+        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no); 
+        
+        update sm_sale_order_items
+        set  balance_qty=qty where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no);
+        
+        update sm_sale_orders
+        set status='APPROVED'  where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no);    
+    else
+        select min(receipt_no) into rec_no from ar_receipts
+        where receipt_id in (select receipt_id from ar_receipt_invoices where
+        invoice_id in (Select invoice_id from sm_sales_invoice_items
+                        where sale_order_id=(select sale_order_id from sm_sale_orders where sale_order_no=so_no)));
+        
+       
+        dbms_output.put_line(' Remove invoice from receipt '||rec_no);
+    end if;    
+
+end;      
+
+

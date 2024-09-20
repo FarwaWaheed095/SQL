@@ -1,0 +1,17 @@
+select * from gl_vouchers
+where voucher_no='2014081862';
+
+
+select * from gl_vouchers
+where module_doc_id=176004;
+
+select inv_id , inv_no , gl_voucher_id , gl_cgs_voucher_id ,inv_type, inv_status,company_id, lube_sale from sale_inv_mast
+where inv_id =176004;
+
+delete from gl_vouchers
+where  module_doc_id=176004
+--and voucher_id not in (734830,734831)
+and module='SALE';
+
+delete from gl_voucher_accounts
+where nvl(voucher_id,0) not in (select voucher_id from gl_vouchers);

@@ -1,0 +1,5 @@
+select d.indent_id, sum(b.received_qty), sum(d.qty) from inv_irn_items b, inv_pos c , inv_po_items d
+where c.po_id=d.po_id
+and c.po_id=3447
+and d.indent_id=b.indent_id(+)
+group by d.indent_id

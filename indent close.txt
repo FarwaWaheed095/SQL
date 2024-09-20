@@ -1,0 +1,8 @@
+update inv_indents a
+set a.INDENT_STATUS = 'CLOSED'
+where indent_id in
+(select indent_id
+from inv_indents a
+where indent_qty < = ( select sum(B.RECEIVED_QTY) from inv_grn_items b where a.indent_id = b.indent_id)
+and A.INDENT_STATUS not in ('CLOSED','CANCELED')
+group by indent_id)

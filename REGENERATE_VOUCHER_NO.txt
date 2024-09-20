@@ -1,0 +1,17 @@
+UPDATE GL_VOUCHERS SET VOUCHER_NO=NULL WHERE voucher_date>='01-dec-13' and voucher_type='BRV';
+
+DECLARE
+    A NUMBER;
+begin 
+    for i in (select voucher_id , VOUCHER_NO , voucher_date ,BRANCH_ID ,  company_id from gl_vouchers
+                where voucher_date>='01-DEC-13' and voucher_type='BRV' order by voucher_DATE)
+    loop
+        a:=null;
+        
+        SELECT GET_VOUCHER_NO(i.voucher_date, 'BRV',I.BRANCH_ID, i.company_id) into a FROM DUAL ;
+        
+        update gl_vouchers
+        set voucher_no=a where voucher_id=i.voucher_id;
+        
+    end loop;
+end;

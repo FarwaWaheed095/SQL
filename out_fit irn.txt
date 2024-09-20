@@ -1,0 +1,3 @@
+update inv_irn_items
+set accepted_qty = RECEIVED_QTY
+where irn_id = (select irn_id from inv_irns where irn_no = );

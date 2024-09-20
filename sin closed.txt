@@ -1,0 +1,5 @@
+update inv_mirs a 
+set mir_status = 'CLOSED'
+where mir_id in ( select mir_id from INV_SIN_MIRS b where a.mir_id = b.mir_id)
+and mir_status = 'HOD_APP'
+and mir_type = 'C'; 

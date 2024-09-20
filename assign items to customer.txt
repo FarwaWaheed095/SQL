@@ -1,0 +1,15 @@
+begin 
+  for i in (select item_id from inv_items
+            where item_code like '1106%')
+            loop
+            
+            
+      insert into  AR_CUSTOMER_ITEMS
+      select AR_CUSTOMER_ITEM_ID_S.nextval , i.item_id , customer_id, null , null , null , null,
+        1 , sysdate , 1 , sysdate
+      from ar_customers
+      where customer_id =62 ;
+      
+    end loop;
+    
+end; 

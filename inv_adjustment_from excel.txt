@@ -1,0 +1,40 @@
+CREATE TABLE DL.A1
+(
+  CODE     VARCHAR2(30 BYTE),
+  DESC     VARCHAR2(100 BYTE),
+  COMPANY  VARCHAR2(50 BYTE),
+  QTY      NUMBER(10),
+  RATE     NUMBER(10),
+  VALUE    NUMBER(10),
+  PROJECT  VARCHAR2(10 BYTE),
+  BRANCH   VARCHAR2(10 BYTE),
+  ITEM_ID  NUMBER(16)
+);
+
+update a1
+set company=1
+where company='DIGITAL LINKS';
+
+
+update a1
+set company=61
+where company='TECHNO LINKS';
+
+update a1
+set project=22, branch='01';
+
+update a1
+set item_id=(select item_id from inv_items where item_code=a1.code);
+
+
+begin
+    for i in (select * from a1)
+    loop
+        
+        insert into inv_adjs(adj_id, item_id,adj_qty,adj_rate,adj_amount,adj_status, company_id,branch_id, project)
+        values(INV_ADJ_S.nextval,i.item_id,i.qty,i.rate,i.value,'CREATED',i.company,i.branch,i.project);
+    end loop;
+    
+end;
+    
+        

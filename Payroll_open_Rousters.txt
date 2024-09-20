@@ -1,0 +1,29 @@
+declare
+    r_id number;
+    period number:=201411;
+    m_days number;
+    p_date  date;
+    cursor emp_group is 
+         (select value_set_value g from data_values where value_set_id=54
+            and value_set_value not in (select group_id from hr_rousters where period_id=period));
+begin
+    select (end_date-start_date)+1 into m_days from gl_periods where period_id=period;
+        
+        for i in emp_group loop 
+        select HR_ROUSTER_ID_S.nextval into r_id from dual;
+        select start_date into p_date from gl_periods where period_id=period;
+        INSERT INTO HR_ROUSTERS VALUES
+                                    (r_id,period ,i.g ,
+                                    '0',1 ,sysdate,1 ,sysdate);
+       
+            for j in 1..m_days loop
+                
+                INSERT INTO HR_ROUSTER_GROUP_SCHEDULES VALUES
+                            ( HR_ROUSTER_GROUP_SCHEDULE_ID_S.nextval,r_id,i.g ,PERIOD,
+                                                                                  P_DATE,1 ,1 ,sysdate,1 ,sysdate);
+                        p_date:=p_date+1;
+
+            end loop;
+        end loop;
+        
+end;

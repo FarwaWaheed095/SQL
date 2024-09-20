@@ -1,0 +1,11 @@
+begin
+    for i in (select item_id, company_id , branch_id , project, sum(qty) qty, avg(rate) rate from inv_stock_ledger
+                    where (item_id, company_id , branch_id , project) not in (select item_id, company_id , branch_id , project from inv_item_companies)
+                    group by item_id, company_id , branch_id , project)
+    loop
+
+                INSERT INTO INV_ITEM_COMPANIES VALUES (INV_ITEMS_COMP_S.NEXTVAL,i.item_id,
+                               i.COMPANY_id,i.rate,i.QTY,i.qty*i.rate,1,SYSDATE,1,SYSDATE,i.project, i.branch_id);
+    end loop;
+
+end;

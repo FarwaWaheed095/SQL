@@ -1,0 +1,16 @@
+begin for i in (
+                select grn_item_id ,INVOICE_QTY qty from ap_invoice_lines
+                where grn_id is not null
+                and invoice_id is null
+                ) loop
+                
+                
+                update inv_grn_items
+                set INVOICE_QTY=nvl(INVOICE_QTY,0)-i.QTY
+                where grn_item_id=i.grn_item_id;
+                
+                delete from ap_invoice_lines where grn_item_id=i.grn_item_id;
+                
+                end loop;
+end;
+                

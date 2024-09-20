@@ -1,0 +1,33 @@
+declare
+    count_late number:=0;
+    s_date date;
+    e_date date;
+begin 
+    for i in ( select emp_id,nvl(late_no,0) late_no, attendance_status,attendance_date from hr_attendances 
+                where attendance_date between '01-jul-12' and '30-jun-13' and emp_id=101 order by attendance_date)
+    loop
+    select start_date , end_date into s_date , e_date from gl_periods where i.attendance_date between start_date and end_date;
+
+        if i.attendance_status ='P' then
+
+            if i.attendance_date=s_date then
+                count_late:=0;
+            end if;
+
+            if (i.late_no=0 or count_late=3) then
+                count_late:=i.late_no;
+            else
+                count_late:=count_late+i.late_no;
+            end if;
+                
+            if  count_late=3 then           
+                update hr_attendances set attendance_status='A' where emp_id=i.emp_id and attendance_date=i.attendance_date;
+            end if;
+
+        end if;
+        
+    end loop;
+end;
+
+
+

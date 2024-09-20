@@ -1,0 +1,20 @@
+update inv_item_companies A set (cur_qty,cur_value)=(SELECT sum(qty),sum(amount)
+from inv_stock_ledger where item_id=a.item_id and company_id=a.company_id);
+
+update inv_item_company_stores A set (cur_qty)=(SELECT sum(qty)
+from inv_stock_ledger where item_id=a.item_id and company_id=a.company_id and store_id=a.store_id);
+
+update inv_item_companies set cur_qty = 0 where cur_qty is null;
+
+update inv_item_company_stores set cur_qty = 0 where cur_qty is null;
+
+
+-------------------DL--------------------
+
+update inv_item_companies A set (cur_qty,cur_value)=(SELECT sum(qty),sum(amount)
+from inv_stock_ledger where item_id=a.item_id and company_id=a.company_id and project= a.project and branch_id = a.branch_id );
+
+
+update inv_item_companies set cur_qty = 0 where cur_qty is null;
+
+update inv_item_companies set cur_rate = 0, cur_value = 0 where cur_qty = 0 ;  

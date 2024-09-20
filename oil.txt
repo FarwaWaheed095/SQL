@@ -1,0 +1,22 @@
+--select * from items
+
+
+--purchase_inv_detail
+
+
+select sim.inv_no Sale_inv_no,sim.inv_date Sale_inv_date, sale_inv_detail.inv_id,sale_inv_detail.item_code Sale_code,
+    ITEMS.DESCRIPTION,pid.item_code purchase_code ,sale_inv_detail.qty,sale_inv_detail.rate,sale_inv_detail.inv_amount,purchase_inv_detail_id,cgs_rate,
+    pid.rate  cgs_act,PID.CREATION_DATE,PIM.INV_NO,pim.inv_date, (sale_inv_detail.rate-pid.rate ) margin,pid.store_id purchase_store,SALE_INV_DETAIL.STORE_ID sale_tore,sim.lube_sale
+from    sale_inv_detail,items,purchase_inv_detail pid,
+        purchase_inv_mast pim,sale_inv_mast sim
+where   sale_inv_detail.inv_id = SIM.INV_ID
+     and  nvl(sim.lube_sale,'Y')='Y'
+    --and sim.inv_date between '01-May-2013' and '31-May-2013'
+    and sim.inv_status='APPROVED'
+    and ITEMS.ITEM_CODE = SALE_INV_DETAIL.ITEM_CODE
+and pid.inv_detail_id = purchase_inv_detail_id
+and pim.inv_id=pid.inv_id --and sale_inv_detail.item_code<>pid.item_code
+--and pid.item_code=146 and pid.STORE_ID=621
+and pid.store_id<>SALE_INV_DETAIL.STORE_ID
+and sim.inv_date>'01-jun-2014'
+order by sale_inv_detail.item_code

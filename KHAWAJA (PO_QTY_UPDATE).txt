@@ -1,0 +1,7 @@
+update sm_production_order_items
+set balance_qty = nvl(po_qty,0)- nvl((select nvl(sum(dc_qty),0) from sm_delivery_challan_items
+                                where production_order_item_id = sm_production_order_items.production_order_item_id
+                                and dc_id in (select dc_id from sm_delivery_challans where status in ('APPROVED','CLOSED') )
+                                group by production_order_item_id),0)                                                                
+where production_order_id in (select production_order_id from sm_delivery_challans where status='PREPARED') 
+

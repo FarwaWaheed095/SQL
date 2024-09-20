@@ -1,0 +1,26 @@
+if :parameter.mode = 'VIEW' then
+	next_item;
+end if;
+if :EMP_NO is not null then
+	DECLARE
+		emp varchar2(100);
+		rec number;
+	BEGIN
+		rec:=:SYSTEM.CURSOR_RECORD;
+		emp:=:HR_OT_REQ_EMPS.EMP_NO;	  
+		GO_BLOCK('HR_OT_REQ_EMPS');
+		FIRST_RECORD;
+		LOOP
+			IF emp=:HR_OT_REQ_EMPS.EMP_NO and :SYSTEM.CURSOR_RECORD<>rec THEN 
+				GO_record(rec);
+				DELETE_RECORD;
+				next_record;
+				raise form_trigger_failure;
+			END IF;
+			EXIT WHEN :SYSTEM.LAST_RECORD='TRUE';
+			NEXT_RECORD;
+		END LOOP;
+				GO_record(rec);
+				next_item;
+	END;
+end if;

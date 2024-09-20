@@ -1,0 +1,9 @@
+delete from hr_emp_leave_balances
+where module='ENTITLED';
+
+
+execute hr_update_entitled_leaves(201410,1);
+execute hr_update_entitled_leaves(201411,1);
+execute hr_update_entitled_leaves(201412,1);
+execute hr_update_entitled_leaves(201501,1);
+execute hr_update_entitled_leaves(201502,1);

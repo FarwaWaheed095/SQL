@@ -1,0 +1,10 @@
+delete from hr_emp_leave_balances
+where leave_bal_id in (
+select max(leave_bal_id) l_id from hr_emp_leave_balances
+where (nvl(leave_id,0) ,  module_doc_id , emp_id) in
+(
+select nvl(leave_id,0) ,  module_doc_id , emp_id from hr_emp_leave_balances
+where module<>'OPENING'
+group by leave_id ,  module_doc_id , emp_id
+having count(*)>1)
+group by module_doc_id , emp_id)

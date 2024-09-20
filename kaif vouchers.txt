@@ -1,0 +1,14 @@
+select * from gl_vouchers
+where voucher_no='2014090059';
+
+select voucher_type,  module_doc , module_doc_id , voucher_id from gl_vouchers
+where voucher_no='2014090060';
+
+select * from sale_inv_mast
+where  inv_id=145011;
+
+delete from gl_vouchers
+where voucher_id=606414;
+
+delete from gl_voucher_accounts
+where voucher_id not in (select voucher_id from gl_vouchers);

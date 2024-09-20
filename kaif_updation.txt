@@ -1,0 +1,57 @@
+delete  from gl_vouchers
+where module='SALE'
+and module_doc='INVOICE'
+and module_doc_id not in (select inv_id from sale_inv_mast);
+
+delete from gl_vouchers
+where module='SALE'
+and module_doc='INVOICE'
+and voucher_type='JSV'
+and voucher_id not in (select nvl(GL_VOUCHER_ID,0) from sale_inv_mast);
+
+
+delete from gl_vouchers
+where module='SALE'
+and module_doc='INVOICE'
+and voucher_type='JCV'
+and voucher_id not in (select nvl(GL_CGS_VOUCHER_ID,0) from sale_inv_mast);
+
+delete  from gl_vouchers
+where module='PURCHASE'
+and module_doc='INVOICE'
+and module_doc_id not in (select inv_id from PURCHASE_inv_mast);
+
+delete from gl_vouchers
+where module='PURCHASE'
+and module_doc='INVOICE'
+and voucher_type='JPV'
+and voucher_id not in (select nvl(GL_VOUCHER_ID,0) from PURCHASE_inv_mast);
+
+
+delete from gl_voucher_accounts
+where nvl(voucher_id,0) not in (select voucher_id from gl_vouchers);
+
+update item_definitions
+set (QTY , STOCK_VALUE)=(select sum(QTY),sum(VALUE) from stock_v where ITEM_CODE=item_definitions.ITEM_CODE
+                            and STORE_ID=item_definitions.STORE_ID);
+                            
+update item_definitions
+set RATE=STOCK_VALUE/QTY
+where qty <>0;                   
+
+SELECT T_TYPE , T_NO , DATED , AMOUNT , FE_AMOUNT , DEBIT , CREDIT , FE_DEBIT, FE_CREDIT , VOUCHER_ID
+FROM CUSTOMER_LEDGER_V A , gl_voucher_accounts B
+WHERE CUSTOMER_ID=1   
+AND A.GL_VOUCHER_ID=B.VOUCHER_ID
+AND B.ACCOUNT_ID=24431  
+
+
+SELECT  T_NO , DATED , SUM(AMOUNT) AMT , SUM(FE_AMOUNT) FE , DEBIT , CREDIT , 
+            FE_DEBIT, FE_CREDIT, VOUCHER_ID
+FROM CUSTOMER_LEDGER_V A , gl_voucher_accounts B
+WHERE CUSTOMER_ID=5   
+AND A.GL_VOUCHER_ID=B.VOUCHER_ID
+AND B.ACCOUNT_ID=24660
+AND DATED between '15-jul-14' and '31-jul-14'  
+GROUP BY  T_NO , DATED, DEBIT , CREDIT , 
+            FE_DEBIT, FE_CREDIT, VOUCHER_ID    

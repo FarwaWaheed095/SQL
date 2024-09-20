@@ -1,0 +1,98 @@
+ 
+begin
+
+  for i in (select batch_id from inv_batchs where batch_id in (612,274,750,427,270,302,856,371,439,654,358,650,320,303,498,726,766,
+                                                                489,553,362,655,674,463,429,442,336,915,819,598,243,467,738,1040,459,
+                                                                561,476,1035,755,1068,1043,564,1138,1056,1144,1145,1132,1126,1107,1336,
+                                                                1377,1415,1275,1278)) 
+  loop
+ 
+    delete from inv_mirs
+    where sin_id in (select packing_sin_id from inv_ftn_items where batch_id=i.batch_id);
+
+    delete from inv_sin_mirs
+    where sin_id in (select packing_sin_id from inv_ftn_items where batch_id=i.batch_id);
+
+    delete from gl_voucher_accounts
+    where voucher_id in ( select voucher_id from inv_sins
+    where sin_id in (select packing_sin_id from inv_ftn_items where batch_id=i.batch_id));
+
+    delete from gl_vouchers
+    where voucher_id in ( select voucher_id from inv_sins
+    where sin_id in (select packing_sin_id from inv_ftn_items where batch_id=i.batch_id));
+
+
+    delete from inv_sins
+    where sin_id in (select packing_sin_id from inv_ftn_items where batch_id=i.batch_id);
+
+
+    --------------------------------
+
+    delete from inv_ftn_items
+    where batch_id=i.batch_id;
+
+    delete from gl_voucher_accounts
+    where voucher_id in ( select voucher_id from inv_ftns where ftn_id in (select ftn_id from inv_ftn_items where batch_id=i.batch_id));
+
+    delete from gl_vouchers
+    where voucher_id in ( select voucher_id from inv_ftns where ftn_id in (select ftn_id from inv_ftn_items where batch_id=i.batch_id));
+
+    delete from  inv_ftns
+    where ftn_id in (select ftn_id from inv_ftn_items where batch_id=i.batch_id);
+
+    delete from gl_voucher_accounts
+    where voucher_id in ( select waste_gl_voucher_id from inv_batchs where batch_id=i.batch_id);
+
+    delete from gl_vouchers
+    where voucher_id in ( select waste_gl_voucher_id from inv_batchs where batch_id=i.batch_id);
+
+    update inv_batchs
+    set batch_status = 'APPROVED' ,produced_qty =null , balance_qty=batch_qty , batch_yield=null , waste_qty=null, waste_cost=null , waste_gl_voucher_id=null
+    where batch_id=i.batch_id;
+
+    -------------------------
+    delete from inv_mirs
+    where sin_id in (select sin_id from pr_bom_orders where bom_order_id in 
+    (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id));
+
+    delete from inv_sin_mirs
+    where sin_id in (select sin_id from pr_bom_orders where bom_order_id in 
+    (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id));
+
+    delete from gl_voucher_accounts
+    where voucher_id in ( select voucher_id from inv_sins
+    where sin_id in (select sin_id from pr_bom_orders where bom_order_id in 
+    (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id)));
+
+    delete from gl_vouchers
+    where voucher_id in ( select voucher_id from inv_sins
+    where sin_id in (select sin_id from pr_bom_orders where bom_order_id in 
+    (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id)));
+
+
+    delete from inv_sins
+    where sin_id in (select sin_id from pr_bom_orders where bom_order_id in 
+    (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id));
+
+    delete from pr_bom_order_materials
+    where bom_order_id in (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id);
+
+    delete from gl_voucher_accounts
+    where voucher_id in (select voucher_id from inv_sins 
+    where sin_id in ( select sin_id from pr_bom_orders
+    where bom_order_id in (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id)));
+
+    delete from gl_vouchers
+    where voucher_id in (select voucher_id from inv_sins 
+    where sin_id in ( select sin_id from pr_bom_orders
+    where bom_order_id in (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id)));
+
+    delete from pr_bom_orders
+    where bom_order_id in (select bom_order_id from pr_bom_order_items where batch_id=i.batch_id);
+
+    delete from pr_bom_order_items
+    where batch_id in ( select batch_id from inv_batchs where batch_id=i.batch_id);
+    
+    end loop;
+
+end;
